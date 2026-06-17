@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 06: Kafka Replication Lag</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 06: Kafka Replication Lag</h1>
+<h2>Scope</h2>
+<p>This runbook covers sustained replication lag between Mumbai and Hyderabad Kafka clusters.</p>
+<h2>Objective</h2>
+<ul>
+<li>Reduce replication lag to acceptable levels</li>
+<li>Prevent stale payment event data from blocking settlement</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>MirrorMaker 2 metrics are available in CloudWatch.</li>
+<li>Network path between regions is healthy.</li>
+<li>Topic partitions and replication configuration are correct.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Review MirrorMaker 2 lag metrics and network latency.</li>
+<li>Identify whether the lag is caused by throughput, CPU, or network issues.</li>
+<li>Throttle producers or temporarily reroute to the local cluster if required.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Increase MirrorMaker 2 consumer/producer throughput settings.</li>
+<li>Scale MSK brokers or increase partition parallelism.</li>
+<li>Clear backlog by replaying unreplicated records.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Confirm lag drops below threshold.</li>
+<li>Validate payment and settlement event continuity.</li>
+<li>Monitor downstream consumers for catch-up.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Review partition sizing and MirrorMaker 2 configuration.</li>
+<li>Update alert thresholds for lag.</li>
+<li>Document performance tuning steps.</li>
+</ul>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 04: DynamoDB Conflict Resolution</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 04: DynamoDB Conflict Resolution</h1>
+<h2>Scope</h2>
+<p>This runbook covers handling conflicting writes and replication reconciliation for DynamoDB Global Tables.</p>
+<h2>Objective</h2>
+<ul>
+<li>Resolve inconsistent item versions</li>
+<li>Ensure idempotent merchant transaction state</li>
+<li>Maintain RPO &lt; 1 minute and service consistency</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>Global Tables are configured in Mumbai and Hyderabad.</li>
+<li>Application uses conditional writes for transaction idempotency.</li>
+<li>Monitoring for <code>ReplicationLatency</code> exists.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Identify conflict events using CloudWatch alarms and application error logs.</li>
+<li>Pause writes to affected items if needed.</li>
+<li>Inspect item versions and <code>LastUpdated</code> timestamps in both regions.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Reconcile item state by applying last-writer-wins rules.</li>
+<li>If necessary, restore the latest valid state from backup.</li>
+<li>Re-enable writes once data consistency is verified.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Confirm read-after-write consistency for reconciled items.</li>
+<li>Validate merchant transaction state with settlement records.</li>
+<li>Check replication metrics and resolve any outstanding latency.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Review DynamoDB conflict triggers and adjust schema if needed.</li>
+<li>Update application logic for stronger idempotency.</li>
+<li>Document the event and mitigation steps.</li>
+</ul>
+    </main>
+  </body>
+</html>

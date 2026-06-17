@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 05: Kafka Partition Failure</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 05: Kafka Partition Failure</h1>
+<h2>Scope</h2>
+<p>This runbook covers partition outages and broker failures within the Apache Kafka environment.</p>
+<h2>Objective</h2>
+<ul>
+<li>Restore Kafka topic availability rapidly</li>
+<li>Prevent message loss and maintain consumer continuity</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>MSK clusters are deployed in Mumbai and Hyderabad.</li>
+<li>MirrorMaker 2 is configured for cross-region replication.</li>
+<li>Consumer groups have retry and fallback logic.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Identify the impacted topic or partition via Kafka broker metrics.</li>
+<li>Review broker state in Amazon MSK.</li>
+<li>If a broker is unhealthy, trigger automated broker replacement.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Validate partitions are rebalanced.</li>
+<li>Confirm MirrorMaker 2 continues replicating messages.</li>
+<li>Restart affected consumers or switch them to the healthy region cluster.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Check consumer lag for impacted topics.</li>
+<li>Confirm settlement and fraud event streams resume.</li>
+<li>Verify no high-priority messages remain unprocessed.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Document partition failure cause.</li>
+<li>Adjust MSK broker sizing or partition counts as needed.</li>
+<li>Review Kafka monitoring thresholds.</li>
+</ul>
+    </main>
+  </body>
+</html>

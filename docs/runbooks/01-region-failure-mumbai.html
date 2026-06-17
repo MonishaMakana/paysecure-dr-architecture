@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 01: Mumbai Region Failure</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 01: Mumbai Region Failure</h1>
+<h2>Scope</h2>
+<p>This runbook covers failover when AWS Mumbai (<code>ap-south-1</code>) becomes unavailable or impaired.</p>
+<h2>Objective</h2>
+<ul>
+<li>Restore service using Hyderabad in under 5 minutes</li>
+<li>Preserve transaction data with RPO &lt; 1 minute</li>
+<li>Maintain compliance with RBI and data localisation by keeping all data inside India</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>AWS Hyderabad environment is fully provisioned and health-checked</li>
+<li>Route 53 failover configuration exists with latency-weighted routing</li>
+<li>Aurora Global Database replica in Hyderabad is available</li>
+<li>DynamoDB Global Tables are synced</li>
+<li>Kafka MirrorMaker 2 replication is operating</li>
+<li>ElastiCache Redis global datastore replica is available</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Confirm Mumbai region degraded via AWS Health Dashboard and CloudWatch alerts.</li>
+<li>Trigger Route 53 failover to Hyderabad using predefined health check status.</li>
+<li>Verify API Gateway endpoint is now routing to Hyderabad application endpoints.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Promote Hyderabad Aurora replica to writer:</li>
+<li>Use <code>PromoteReadReplicaDBCluster</code> for Hyderabad Aurora cluster.</li>
+<li>Validate writer endpoint health.</li>
+<li>Confirm DynamoDB global table writes continue in Hyderabad.</li>
+<li>Promote Redis replica:</li>
+<li>Use ElastiCache global datastore failover.</li>
+<li>Update application Redis endpoint alias if necessary.</li>
+<li>Switch Kafka consumers to Hyderabad MSK cluster:</li>
+<li>Validate MirrorMaker 2 replication lag.</li>
+<li>Update consumer group configuration if automatic failover is not active.</li>
+<li>Execute smoke tests for payment flow and reconciliations.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Confirm <code>POST /payment</code> success in Hyderabad.</li>
+<li>Verify Aurora writer and read endpoints are healthy.</li>
+<li>Validate DynamoDB table writes and reads.</li>
+<li>Check consumer lag in MSK and retry on any stuck partitions.</li>
+<li>Confirm downstream settlement messages continue.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Document incident and time to recover.</li>
+<li>Run root cause analysis with AWS Support if needed.</li>
+<li>Review replication lag metrics and adjust capacity.</li>
+<li>Schedule a full DR test for the failback process.</li>
+</ul>
+    </main>
+  </body>
+</html>

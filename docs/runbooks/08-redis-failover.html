@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 08: ElastiCache Redis Failover</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 08: ElastiCache Redis Failover</h1>
+<h2>Scope</h2>
+<p>This runbook covers failover for ElastiCache Redis when the primary cache cluster fails.</p>
+<h2>Objective</h2>
+<ul>
+<li>Promote the secondary Redis instance in Hyderabad</li>
+<li>Restore cache-dependent services quickly</li>
+<li>Keep RTO under 5 minutes</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>Redis global datastore replication is configured.</li>
+<li>Application uses DNS alias for Redis endpoint.</li>
+<li>Health checks and failover alarms are enabled.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Identify the Redis failure through CloudWatch metrics and alarms.</li>
+<li>Confirm primary cluster health status.</li>
+<li>If primary is down, trigger Global Datastore failover.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Promote Hyderabad replica to primary using ElastiCache failover.</li>
+<li>Update Redis alias if auto-swap does not occur.</li>
+<li>Flush stale connections and allow the application to reconnect.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Confirm Redis client connectivity.</li>
+<li>Validate cache key access and TTL behavior.</li>
+<li>Confirm application performance recovers.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Document failover cause.</li>
+<li>Review cache population and cold-start timing.</li>
+<li>Adjust failover thresholds and automation.</li>
+</ul>
+    </main>
+  </body>
+</html>

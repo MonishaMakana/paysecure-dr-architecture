@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PaySecure DR Architecture</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>PaySecure Gateway Disaster Recovery Architecture</h1>
+        <p>Multi-region India-only AWS design for 99.99% uptime, RPO &lt; 1 minute, and RTO &lt; 5 minutes.</p>
+      </header>
+
+      <section>
+        <h2>Contents</h2>
+        <ul>
+          <li><a href="../ARCHITECTURE.md">Full Architecture Document</a></li>
+          <li><a href="../COMPLIANCE_MAPPING.md">Compliance Mapping</a></li>
+          <li><a href="../BC_REVIEW_BOARD_PRESENTATION.md">Review Board Presentation</a></li>
+          <li><a href="runbooks/index.html">Disaster Recovery Runbooks</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Key Highlights</h2>
+        <ul>
+          <li>Active-active deployment across AWS Mumbai and Hyderabad</li>
+          <li>Aurora PostgreSQL Global Database with sub-minute replication</li>
+          <li>DynamoDB Global Tables for multi-region write availability</li>
+          <li>Kafka cross-region replication using MirrorMaker 2</li>
+          <li>12 production-quality disaster recovery runbooks</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

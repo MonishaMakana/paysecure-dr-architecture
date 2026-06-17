@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 02: Hyderabad Region Failure</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 02: Hyderabad Region Failure</h1>
+<h2>Scope</h2>
+<p>This runbook covers failover when AWS Hyderabad (<code>ap-south-2</code>) becomes unavailable or impaired.</p>
+<h2>Objective</h2>
+<ul>
+<li>Maintain Mumbai as active fail-safe region</li>
+<li>Keep transaction continuity and RPO under 1 minute</li>
+<li>Meet regulatory resilience requirements</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>Mumbai environment is primary and healthy.</li>
+<li>Route 53 failover records are preconfigured.</li>
+<li>Aurora primary cluster in Mumbai is online.</li>
+<li>DynamoDB Global Tables remain writable in Mumbai.</li>
+<li>Kafka primary cluster in Mumbai is available.</li>
+<li>ElastiCache Redis primary cluster in Mumbai is available.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Confirm Hyderabad outage through AWS Health and monitoring alerts.</li>
+<li>Adjust Route 53 weighted routing to send all traffic to Mumbai.</li>
+<li>Validate API calls through Mumbai region endpoints.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Ensure Aurora Global Database is still healthy in Mumbai.</li>
+<li>Verify DynamoDB writes and reads in Mumbai.</li>
+<li>Confirm Redis primary cluster health.</li>
+<li>Check Kafka replication status and adjust MirrorMaker 2 if needed.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Execute payments test flows in Mumbai.</li>
+<li>Confirm no lagging global table writes.</li>
+<li>Check cache hits and Redis keyspace.</li>
+<li>Validate Kafka consumer groups and transaction event delivery.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Document failover details and timings.</li>
+<li>Monitor for any residual replication or sync issues.</li>
+<li>Prepare failback plan to restore Hyderabad after service is stable.</li>
+<li>Notify compliance and operations teams.</li>
+</ul>
+    </main>
+  </body>
+</html>

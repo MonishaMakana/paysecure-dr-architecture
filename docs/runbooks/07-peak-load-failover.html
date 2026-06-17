@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 07: Peak Load Failover</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 07: Peak Load Failover</h1>
+<h2>Scope</h2>
+<p>This runbook covers failover and scaling under high transaction volume spikes.</p>
+<h2>Objective</h2>
+<ul>
+<li>Maintain service responsiveness during peak demand</li>
+<li>Ensure uptime and recoverability when load exceeds thresholds</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>Autoscaling policies are configured for ECS/EKS, Aurora, DynamoDB, and MSK.</li>
+<li>Burst capacity is modeled for 3.2 million daily transactions.</li>
+<li>Health checks and throttling limits are active.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Detect peak load via CloudWatch metric alarms for request rate and latency.</li>
+<li>Evaluate whether the load is legitimate or caused by a spike/fault.</li>
+<li>If traffic is legitimate, scale application and database resources.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Increase ECS/EKS task capacity and load balancer target counts.</li>
+<li>Scale Aurora reader nodes and DynamoDB on-demand throughput.</li>
+<li>Scale MSK broker capacity and partition handling.</li>
+<li>Use Route 53 weighted routing to shift excess traffic to Hyderabad if Mumbai is saturated.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Confirm request latency returns to acceptable levels.</li>
+<li>Verify transaction success rates.</li>
+<li>Check downstream processing systems for backpressure.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Analyze peak load event and refine scaling thresholds.</li>
+<li>Update capacity planning documents.</li>
+<li>Conduct tabletop exercises for similar traffic patterns.</li>
+</ul>
+    </main>
+  </body>
+</html>

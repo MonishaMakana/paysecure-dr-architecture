@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 09: API Gateway Incident Mitigation</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 09: API Gateway Incident Mitigation</h1>
+<h2>Scope</h2>
+<p>This runbook covers API Gateway and edge endpoint outages affecting merchant traffic.</p>
+<h2>Objective</h2>
+<ul>
+<li>Restore API availability quickly</li>
+<li>Maintain payment acceptance and merchant connectivity</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>API Gateway endpoints exist in both Mumbai and Hyderabad.</li>
+<li>Route 53 failover health checks monitor API availability.</li>
+<li>API keys and mTLS certificates are up to date.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Confirm API Gateway endpoints are unavailable.</li>
+<li>Check Route 53 health check results and API Gateway logs.</li>
+<li>Fail over to the healthy region by switching DNS weights.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Validate merchant traffic reaches the alternate region.</li>
+<li>Confirm API Gateway stage deployment and authorization settings.</li>
+<li>If certificate issues exist, rotate certificates and redeploy.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Perform end-to-end payment request tests.</li>
+<li>Confirm API responses and latency.</li>
+<li>Validate merchant authentication and authorization success.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Review API Gateway configuration and stage deployment processes.</li>
+<li>Update DNS and certificate automation as needed.</li>
+<li>Report the incident to stakeholders.</li>
+</ul>
+    </main>
+  </body>
+</html>

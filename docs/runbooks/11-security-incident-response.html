@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 11: Security Incident Response</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 11: Security Incident Response</h1>
+<h2>Scope</h2>
+<p>This runbook covers security incidents that impact disaster recovery or business continuity, including potential breaches in payment infrastructure.</p>
+<h2>Objective</h2>
+<ul>
+<li>Contain and remediate security incidents rapidly</li>
+<li>Preserve forensic evidence and maintain compliance</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>Incident response plan and security operations processes exist.</li>
+<li>CloudTrail, GuardDuty, and VPC Flow Logs are enabled.</li>
+<li>Communication channels for incident response teams are established.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Identify the incident type (intrusion, data exfiltration, service compromise).</li>
+<li>Isolate the affected region or service.</li>
+<li>Capture logs and snapshot affected infrastructure.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Failover to the backup region if the primary region is compromised.</li>
+<li>Rotate credentials, secrets, and API keys.</li>
+<li>Rebuild affected infrastructure from secure IaC templates.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Confirm the incident is contained.</li>
+<li>Validate restored services in the recovery region.</li>
+<li>Ensure forensic evidence is preserved.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Conduct a post-incident review.</li>
+<li>Update security controls and runbooks.</li>
+<li>Notify regulators and stakeholders as required.</li>
+</ul>
+    </main>
+  </body>
+</html>

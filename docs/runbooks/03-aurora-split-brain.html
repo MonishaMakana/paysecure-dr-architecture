@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 03: Aurora PostgreSQL Split-Brain</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 03: Aurora PostgreSQL Split-Brain</h1>
+<h2>Scope</h2>
+<p>This runbook covers split-brain or conflicting writer scenarios in the Aurora Global Database between Mumbai and Hyderabad.</p>
+<h2>Objective</h2>
+<ul>
+<li>Restore a single writer topology</li>
+<li>Prevent data corruption and ensure transactional integrity</li>
+<li>Meet RTO under 5 minutes</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>Aurora Global Database replication is enabled.</li>
+<li>Monitoring of Aurora cluster endpoints is active.</li>
+<li>Route 53 and application connection logic support fast endpoint updates.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Detect split-brain via monitoring alarms on <code>aurora:ReplicationLag</code> and <code>DBClusterRole</code>.</li>
+<li>Stop writer traffic to suspect region.</li>
+<li>Confirm which region has the latest committed state using transaction logs and cluster status.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>If Mumbai is primary and healthy:</li>
+<li>Force Hyderbad instance to read-only.</li>
+<li>Confirm no writes are accepted in Hyderabad.</li>
+<li>Re-establish replication from Mumbai to Hyderabad.</li>
+<li>If Hyderabad becomes the valid recovery site:</li>
+<li>Promote Hyderabad replica to writer.</li>
+<li>Redirect application writer traffic to Hyderabad endpoint.</li>
+<li>Pause Mumbai Aurora writes until replication is re-established.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Verify only one writer endpoint is active.</li>
+<li>Validate application writes succeed and no duplicate transaction IDs are created.</li>
+<li>Confirm Aurora replication resumes normally.</li>
+<li>Review transaction reconciliation with settlement systems.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Document split-brain root cause.</li>
+<li>Review Aurora failover settings.</li>
+<li>Update runbook with any procedural lessons.</li>
+<li>Notify audit and compliance teams.</li>
+</ul>
+    </main>
+  </body>
+</html>

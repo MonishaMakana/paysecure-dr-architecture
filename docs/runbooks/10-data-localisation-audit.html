@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 10: Data Localisation Audit</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 10: Data Localisation Audit</h1>
+<h2>Scope</h2>
+<p>This runbook covers auditing and verifying that payment data remains within Indian AWS regions.</p>
+<h2>Objective</h2>
+<ul>
+<li>Ensure all regulated payment data is stored and processed only in Mumbai and Hyderabad</li>
+<li>Demonstrate compliance with RBI and data localisation requirements</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>AWS Config rules are enabled for resource location.</li>
+<li>Data classification and tagging are enforced.</li>
+<li>Periodic inventory of storage resources exists.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Run AWS Config conformance packs for regional compliance.</li>
+<li>Audit S3 bucket locations, DynamoDB tables, Aurora clusters, and Kafka topics.</li>
+<li>Confirm no snapshots or backups are stored outside India.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Remediate any out-of-compliance resources by relocating or deleting them.</li>
+<li>Re-run compliance checks.</li>
+<li>Document findings and remediation steps.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Confirm all resources are within <code>ap-south-1</code> or <code>ap-south-2</code>.</li>
+<li>Verify backups and snapshots are also localized.</li>
+<li>Report compliance findings to the security team.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Schedule regular audits.</li>
+<li>Update policy enforcement for new service deployments.</li>
+<li>Maintain evidence for inspection.</li>
+</ul>
+    </main>
+  </body>
+</html>

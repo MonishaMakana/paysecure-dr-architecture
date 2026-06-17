@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook 12: Post-Recovery Reconciliation</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+<h1>Runbook 12: Post-Recovery Reconciliation</h1>
+<h2>Scope</h2>
+<p>This runbook covers validation and reconciliation after a disaster recovery event.</p>
+<h2>Objective</h2>
+<ul>
+<li>Confirm data integrity after failover or recovery</li>
+<li>Reconcile transaction volumes and settlement records</li>
+</ul>
+<h2>Preconditions</h2>
+<ul>
+<li>Reconciliation processes exist for payments, settlements, and merchant balances.</li>
+<li>Audit logs and transaction event stores are available.</li>
+</ul>
+<h2>Immediate Actions</h2>
+<ol>
+<li>Collect transaction data from both regions and payment systems.</li>
+<li>Compare counts and values for all processed transactions.</li>
+<li>Validate no duplicate or missing transactions occurred during recovery.</li>
+</ol>
+<h2>RTO Steps</h2>
+<ol>
+<li>Reconcile payment event streams with backend settlement ledgers.</li>
+<li>Validate merchant account balances and reconciliation records.</li>
+<li>Fix any detected discrepancies with controlled rollback procedures.</li>
+</ol>
+<h2>Validation</h2>
+<ul>
+<li>Confirm transaction counts match expected volumes.</li>
+<li>Verify settlement batches are complete.</li>
+<li>Ensure audit logs show no gaps or unauthorized changes.</li>
+</ul>
+<h2>Post-Recovery Activities</h2>
+<ul>
+<li>Document reconciliation results and any corrections.</li>
+<li>Review root cause and improve the DR process.</li>
+<li>Share findings with the Board and compliance teams.</li>
+</ul>
+    </main>
+  </body>
+</html>

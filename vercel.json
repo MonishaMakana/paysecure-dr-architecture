@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "builds": [
+    { "src": "**/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/docs/index.html" },
+    { "src": "/styles.css", "dest": "/docs/styles.css" },
+    { "src": "/runbooks/(.*)", "dest": "/docs/runbooks/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
